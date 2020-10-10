@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from random import randint
-import warnings
 from termcolor import cprint
 
 # День сурка
