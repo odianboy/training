@@ -10,15 +10,25 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
+month = 0   # Количество пройденных месяцев
+grants = 0  # Стипендия
+costs = 0   # Ежемеечные расходы
 
-# TODO здесь ваш код
-annual_amount = 0
-while expenses < 123240:
-    expenses += 12360
-    educational_grant += 10000
-annual_amount = expenses - educational_grant
+while month != 10:  # До тех пор пока month не равен 10 (кол-во месяцев)
+    grants += educational_grant     # Накопительный счет для стипендии
+    costs += expenses   # Первоночальный месяц
+    month += 1
+    if month == 1:
+        costs += expenses + (expenses * 0.03)  # Накопительный счет для расходов с повышением цен на 3%
 
-print("Студенту надо попросить,", annual_amount, "рублей")
+print('Студенту надо попросить', round(costs - grants, 2), "рублей")
+
+
+
+
+
+
+
 
 
 
