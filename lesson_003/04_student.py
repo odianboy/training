@@ -10,16 +10,16 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
-quantity_month = 0   # Количество пройденных месяцев
-month = 0
-grants = 0  # Стипендия
-costs = 0  # Ежемеечные расходы
+quantity_month = 0   # Количество прожитых месяцев
+grants = 0  # Сумма ежемеечных стипендний
+costs = 0  # Сумма ежемеечных расходов
 
-while quantity_month != 10:  # До тех пор пока month не равен 10 (кол-во месяцев)
-    grants += educational_grant     # Накопительный счет для стипендии
+
+while quantity_month != 10:  # До тех пор пока количество месяцев не равно 10
+    grants += educational_grant
     if quantity_month == 0:
         month = expenses
-        costs += month
+        costs += month      # Накопительный счет для расходов с повышением цен на 3%
     elif quantity_month == 1:
         month_2 = month + (month * 0.03)
         costs += month_2
@@ -45,10 +45,8 @@ while quantity_month != 10:  # До тех пор пока month не равен
         month_9 = month_8 + (month_8 * 0.03)
         costs += month_9
     elif quantity_month == 9:
-        month_10 = month_9 + month_9 * 0.03
+        month_10 = month_9 + (month_9 * 0.03)
         costs += month_10
-
-    # print(month_10)# Накопительный счет для расходов с повышением цен на 3%
 
     quantity_month += 1
 
