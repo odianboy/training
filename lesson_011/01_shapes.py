@@ -29,8 +29,8 @@ def get_polygon(n):
     return figure
 
 
-draw_figure = get_polygon(n=4)
-draw_figure(point=sd.get_point(200, 200), angle=13, length=100, def_vector=90)
+draw_figure = get_polygon(n=3)
+draw_figure(point=sd.get_point(200, 200), angle=13, length=100, def_vector=120)
 
 
 sd.pause()
