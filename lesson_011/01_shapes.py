@@ -20,43 +20,17 @@ def get_polygon(n):
         vector.draw()
         return vector
 
-    if n == 3:
-        def triangle(point, angle, length, width=2, def_vector=120):
-            last_endpoint = point
-            for i in range(1, 4):
-                vector = draw_vector(last_endpoint, angle, length, width)
-                last_endpoint = vector.end_point
-                angle += def_vector
-        return triangle
-    elif n == 4:
-        def square(point=sd.get_point(300, 300), angle=0, length=200, width=2, def_vector=90):
-            last_endpoint = point
-            for i in range(1, 5):
-                vector = draw_vector(last_endpoint, angle, length, width)
-                last_endpoint = vector.end_point
-                angle += def_vector
-        return square
-    elif n == 5:
-        def pentagon(point=sd.get_point(300, 300), angle=0, length=200, width=2, def_vector=72):
-            last_endpoint = point
-            for i in range(1, 6):
-                vector = draw_vector(last_endpoint, angle, length, width)
-                last_endpoint = vector.end_point
-                angle += def_vector
-        return pentagon
-    elif n == 6:
-        def hexagon(point=sd.get_point(300, 300), angle=0, length=200, width=2, def_vector=60):
-            last_endpoint = point
-            for i in range(1, 7):
-                vector = draw_vector(last_endpoint, angle, length, width)
-                last_endpoint = vector.end_point
-                angle += def_vector
-        return hexagon
-    raise Exception('Могу принимать только эти параметры 3, 4, 5, 6')
+    def figure(point, angle, length, def_vector, width=2):
+        last_endpoint = point
+        for i in range(1, n + 1):
+            vector = draw_vector(last_endpoint, angle, length, width)
+            last_endpoint = vector.end_point
+            angle += def_vector
+    return figure
 
 
-draw_figure = get_polygon(n=3)
-draw_figure(point=sd.get_point(200, 200), angle=13, length=100)
+draw_figure = get_polygon(n=4)
+draw_figure(point=sd.get_point(200, 200), angle=13, length=100, def_vector=90)
 
 
 sd.pause()
