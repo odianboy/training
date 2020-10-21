@@ -52,9 +52,10 @@ def get_polygon(n):
                 last_endpoint = vector.end_point
                 angle += def_vector
         return hexagon
+    raise Exception('Могу принимать только эти параметры 3, 4, 5, 6')
 
 
-draw_figure = get_polygon(n=6)
+draw_figure = get_polygon(n=3)
 draw_figure(point=sd.get_point(200, 200), angle=13, length=100)
 
 
