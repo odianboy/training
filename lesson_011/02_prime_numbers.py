@@ -24,25 +24,41 @@ def get_prime_numbers(n):
 class PrimeNumbers:
     def __init__(self, n):
         self.n = n
-        self.i = 0
-        self.a = 0
-        self.b = 2
 
     def __iter__(self):
-        self.i = 0
+        self.number = 1
+        self.prime_numbers = []
         return self
 
+    def _get_next(self):
+        self.number += 1
+
+        if self.number >= self.n:
+            raise StopIteration()
+
+        for prime in self.prime_numbers:
+            if self.number % prime == 0:
+                return
+        self.prime_numbers.append(self.number)
+        return self.number
+
     def __next__(self):
-        self.i += 1
-        if self.i > 1:
-            if self.i > self.n + 1:
-                raise StopIteration()
-            if self.b % 2 == 0:
-                self.a += self.b
-        return self.a
+        value = None
+        while value is None:
+            value = self._get_next()
+
+        return value
+
+    def __repr__(self):
+        return str(self.prime_numbers)
 
 
 prime_number_iterator = PrimeNumbers(n=10000)
+print('First')
+for number in prime_number_iterator:
+    print(number)
+
+print('Second')
 for number in prime_number_iterator:
     print(number)
 
@@ -53,10 +69,15 @@ for number in prime_number_iterator:
 # Распечатать все простые числа до 10000 в столбик
 
 
-def prime_numbers_generator(n):
-    pass
-    # TODO здесь ваш код
-
+    def prime_numbers_generator(n):
+        prime_numbers = []
+        for number in range(2, n + 1):
+            for prime in prime_numbers:
+                if number % prime == 0:
+                    break
+            else:
+                prime_numbers.append(number)
+                yield number
 
 for number in prime_numbers_generator(n=10000):
     print(number)
