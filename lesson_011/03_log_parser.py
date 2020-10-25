@@ -14,4 +14,24 @@
 #
 # [2018-05-17 01:57] 1234
 
-# TODO здесь ваш код
+def iter_log():
+    sum_nok = 0
+    pprint = ''
+
+    for i in range(0, 6):
+        with open('events.txt') as file:
+            for text in file:
+                if 'NOK' in text:
+                    if int(text[15]) == i:
+                        pprint = text[:17] + ']'
+                        sum_nok += 1
+
+        yield pprint, sum_nok
+
+        sum_nok = 0
+        pprint = ''
+
+
+grouped_events = iter_log()
+for group_time, event_count in grouped_events:
+    print(group_time, event_count)
