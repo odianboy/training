@@ -18,7 +18,8 @@ def log_errors(func):
                 args_list = list(args) + list(kwargs.values())
                 args_str = ','.join([str(arg) for arg in args_list])
                 file.write(f'Имя функции - {func.__name__}, Параметры вызова - [{args_str}], Тип ошибки - {exc} \n')
-    return decor()
+
+    return decor
 
 # Проверить работу на следующих функциях
 @log_errors
