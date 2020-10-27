@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 
 
 # Есть функция генерации списка простых чисел
@@ -6,13 +7,14 @@
 
 def get_prime_numbers(n):
     prime_numbers = []
-    for number in range(2, n+1):
+    for number in range(2, n + 1):
         for prime in prime_numbers:
             if number % prime == 0:
                 break
         else:
             prime_numbers.append(number)
     return prime_numbers
+
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -63,11 +65,9 @@ for number in prime_number_iterator:
     print(number)
 
 
-# TODO после подтверждения части 1 преподователем, можно делать
-# Часть 2
-# Теперь нужно создать генератор, который выдает последовательность простых чисел до n
-# Распечатать все простые числа до 10000 в столбик
-
+    # Часть 2
+    # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
+    # Распечатать все простые числа до 10000 в столбик
 
     def prime_numbers_generator(n):
         prime_numbers = []
@@ -98,3 +98,40 @@ for number in prime_numbers_generator(n=10000):
 # простых счастливых палиндромных чисел и так далее. Придумать не менее 2х способов.
 #
 # Подсказка: возможно, нужно будет добавить параметр в итератор/генератор.
+
+
+def lucky_number(number):
+    number = str(number)
+    sum_1, sum_2 = 0, 0
+    for i in range(0,
+                   int(len(number) // 2)):
+        sum_1 += int(number[i])
+        sum_2 += int(number[-i - 1])
+    if sum_1 == sum_2:
+        yield True, print(f'Самма первых двух чисел - {sum_1}, Последних - {sum_2}')
+    else:
+        yield False, print(f'Самма первых двух чисел - {sum_1}, Последних - {sum_2}')
+
+
+# while True:
+#     rand = random.randint(1, 99999999999)
+#     lucky = good_number(number=(rand))
+#
+#     for num in lucky:
+#         print(num)
+
+def palindromic_numbers(number):
+    number = str(number)
+    lst = []
+    for i in range(0, int(len(number) // 2)):
+        if int(number[i]) == int(number[-i - 1]):
+            lst.append(True)
+        else:
+            lst.clear()
+            break
+    yield True if True in lst else False
+
+
+palindromic = palindromic_numbers(723327)
+for num in palindromic:
+    print(num)
