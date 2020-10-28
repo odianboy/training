@@ -46,15 +46,12 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-# TODO здесь ваш код
-
 for product, code in goods.items():
     total_quantity, total_price = 0, 0
     for roll in store[code]:
         total_quantity += roll["quantity"]
-        total_price += roll["price"]
-    print(product, total_quantity, "шт", total_price, "руб", "общая стоимость равна", total_quantity * total_price,
-          "руб")
+        total_price += roll["price"] * roll["quantity"]
+    print(product, total_quantity, "шт", "общая стоимость равна", total_price, "руб")
 
 
 
