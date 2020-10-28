@@ -14,7 +14,7 @@ def log_errors(func):
             result = func(*args, **kwargs)
             return result
         except (ZeroDivisionError, Exception) as exc:
-            with open('function_errors.txt', 'a', encoding='utf8') as file:
+            with open('function_errors.log', 'a', encoding='utf8') as file:
                 args_list = list(args) + list(kwargs.values())
                 args_str = ','.join([str(arg) for arg in args_list])
                 file.write(f'Имя функции - {func.__name__}, Параметры вызова - [{args_str}], Тип ошибки - {exc} \n')
