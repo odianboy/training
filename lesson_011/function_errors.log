@@ -1,0 +1,4 @@
+Имя функции - check_line, Параметры вызова - [Ярослав bxh@ya.ru 600], Тип ошибки - Age not in 10..99 range 
+Имя функции - check_line, Параметры вызова - [Тролль nsocnzas.mail.ru 82], Тип ошибки - it's not a email 
+Имя функции - check_line, Параметры вызова - [Земфира 86], Тип ошибки - not enough values to unpack (expected 3, got 2) 
+Имя функции - perky, Параметры вызова - [42], Тип ошибки - division by zero 
