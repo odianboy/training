@@ -87,25 +87,24 @@ class Ticker:
         files = os.listdir(self.dir_name)
         for file_name in files:
             with open(f"{self.dir_name}/{file_name}") as ff:
-                min_list, max_list = [], []
+                total_list = []
                 spam_reader = list(csv.reader(ff))
 
                 for read in spam_reader[1:]:
                     self.price = float(read[2])
-                    min_list.append(self.price)
-                    max_list.append(self.price)
+                    total_list.append(self.price)
 
-                average_price = (min(min_list) + max(max_list)) / 2
-                volatility = (max(max_list) - min(min_list) / average_price) * 100
+                average_price = sum(total_list) / len(total_list)
+                volatility = ((max(total_list)) - (min(total_list)) / average_price) * 100
 
                 result[file_name[7:11]] = round(volatility, 4)
 
-                min_list.clear()
-                max_list.clear()
+                total_list.clear()
                 lst = []
         for values in sorted(result.items(), key=lambda para: para[1], reverse=True):
             lst.append(values)
-        print('Максимальная волатильность:', lst[:3])
+            print(values)
+        # print('Максимальная волатильность:', lst[:3])
 
 
 if __name__ == '__main__':
