@@ -79,35 +79,37 @@ from pprint import pprint
 
 class Ticker:
 
-    def __init__(self, file_name):
-        self.file_name = file_name
+    def __init__(self, dir_name):
+        self.dir_name = dir_name
 
     def run(self):
         result = defaultdict(int)
-        file = os.listdir(self.file_name)
-        for line in file:
-            with open(self.file_name + '\\' + line) as ff:
+        files = os.listdir(self.dir_name)
+        for file_name in files:
+            with open(f"{self.dir_name}/{file_name}") as ff:
                 min_list, max_list = [], []
-                spamreader = csv.reader(ff)
-                for read in spamreader:
-                    self.price = read[2]
-                    if read[2] == 'PRICE':
-                        continue
-                    else:
-                        self.price = float(self.price)
-                        min_list.append(self.price)
-                        max_list.append(self.price)
+                spam_reader = list(csv.reader(ff))
+
+                for read in spam_reader[1:]:
+                    self.price = float(read[2])
+                    min_list.append(self.price)
+                    max_list.append(self.price)
+
                 average_price = (min(min_list) + max(max_list)) / 2
                 volatility = (max(max_list) - min(min_list) / average_price) * 100
 
-                result[line[7:11]] = round(volatility, 4)
+                result[file_name[7:11]] = round(volatility, 4)
 
                 min_list.clear()
                 max_list.clear()
-        pprint(result)
+                lst = []
+        for values in sorted(result.items(), key=lambda para: para[1], reverse=True):
+            lst.append(values)
+        print('Максимальная волатильность:', lst[:3])
 
 
-ticker = Ticker('trades')
-ticker.run()
+if __name__ == '__main__':
+    ticker = Ticker('trades')
+    ticker.run()
 
 
