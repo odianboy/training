@@ -59,3 +59,4 @@ if __name__ == '__main__':
 
     for ticker in count:
        ticker.join()
+       print(ticker)
