@@ -83,28 +83,43 @@ class Ticker:
         self.dir_name = dir_name
 
     def run(self):
-        result = defaultdict(int)
+        result = {}
+        null_result = {}
         files = os.listdir(self.dir_name)
         for file_name in files:
             with open(f"{self.dir_name}/{file_name}") as ff:
                 total_list = []
                 spam_reader = list(csv.reader(ff))
+                ticker_name = file_name[7:11]
 
                 for read in spam_reader[1:]:
                     self.price = float(read[2])
                     total_list.append(self.price)
 
-                average_price = sum(total_list) / len(total_list)
-                volatility = ((max(total_list)) - (min(total_list)) / average_price) * 100
+                maximum = max(total_list)
+                minimum = min(total_list)
+                average = sum(total_list) / len(total_list)
+                volatility = round((maximum - minimum) / average * 100, 4)
 
-                result[file_name[7:11]] = round(volatility, 4)
+                if not volatility:
+                    null_result[ticker_name] = volatility
+                else:
+                    result[ticker_name] = volatility
 
-                total_list.clear()
-                lst = []
-        for values in sorted(result.items(), key=lambda para: para[1], reverse=True):
-            lst.append(values)
-            print(values)
-        # print('Максимальная волатильность:', lst[:3])
+        result = sorted(result.items(), key=lambda row: row[1], reverse=True)
+
+        def _print_result(data):
+            for _ticker_name, _volatility in data:
+                print(f'\t{_ticker_name} - {_volatility}', '%')
+
+        print('\nМаксимальная волатильность:')
+        _print_result(result[:3])
+
+        print('\nМинимальная волатильность:')
+        _print_result(result[len(result)-3:])
+
+        print('\nНулевая волатильность:')
+        _print_result(null_result.items())
 
 
 if __name__ == '__main__':
