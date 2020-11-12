@@ -3,6 +3,7 @@ import threading
 import os
 import csv
 from threading import Thread
+import datetime
 from lesson_012.python_snippets.utils import time_track
 
 # Задача: вычислить 3 тикера с максимальной и 3 тикера с минимальной волатильностью в МНОГОПОТОЧНОМ стиле
@@ -23,11 +24,12 @@ from lesson_012.python_snippets.utils import time_track
 #
 
 
-class Ticker(Thread):
+class Ticker(threading.Thread):
 
-    def __init__(self, dir_name, *args, **kwargs):
+    def __init__(self, dir_name, lock, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.dir_name = dir_name
+        self.ticker_lock = lock
 
     def run(self):
         result = {}
@@ -59,6 +61,8 @@ class Ticker(Thread):
             for _ticker_name, _volatility in data:
                 print(f'\t{_ticker_name} - {_volatility}', '%')
 
+        self.ticker_lock.acquire()
+
         print('\nМаксимальная волатильность:')
         _print_result(result[:3])
 
@@ -68,12 +72,15 @@ class Ticker(Thread):
         print('\nНулевая волатильность:')
         _print_result(null_result.items())
 
+        print('END: ', datetime.datetime.now())
+
+        self.ticker_lock.release()
+
 
 if __name__ == '__main__':
-    thread = Ticker('trades')
-    thread2 = Ticker('trades')
-    thread.start()
-    thread.join()
-    thread2.start()
-    thread2.join()
+    lock = threading.Lock()
+    print('START: ', datetime.datetime.now())
+    for i in range(5):
+        thread = Ticker(dir_name='trades', lock=lock)
+        thread.start()
 

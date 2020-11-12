@@ -2,6 +2,7 @@
 import os
 import csv
 from collections import defaultdict
+import datetime
 from pprint import pprint
 
 # Описание предметной области:
@@ -121,8 +122,11 @@ class Ticker:
         print('\nНулевая волатильность:')
         _print_result(null_result.items())
 
+        print('END: ', datetime.datetime.now())
+
 
 if __name__ == '__main__':
+    print('START: ', datetime.datetime.now())
     ticker = Ticker('trades')
     ticker.run()
 
